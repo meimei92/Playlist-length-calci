@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Calculate the total watch time of any public YouTube playlist. See duration at every playback speed."
+    />
+    <title>YouTube Playlist Length Calculator</title>
+
+    <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ░░ BACKGROUND GRID / SCANLINE OVERLAY ░░ -->
+    <div class="bg-texture" aria-hidden="true"></div>
+
+    <!-- ░░ HEADER ░░ -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="logo-block">
+          <span class="logo-icon" aria-hidden="true">▶</span>
+          <div>
+            <h1 class="site-title">Playlist Length Calculator</h1>
+            <p class="site-tagline">Calculate the total watch time of any public playlist</p>
+          </div>
+        </div>
+
+        <button
+          id="theme-toggle"
+          class="theme-btn"
+          aria-label="Switch to dark mode"
+          title="Toggle theme"
+        >
+          <span class="theme-icon-light" aria-hidden="true">☀</span>
+          <span class="theme-icon-dark" aria-hidden="true">⚡</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ░░ MAIN ░░ -->
+    <main class="main-content">
+
+      <!-- INPUT CARD -->
+      <section class="card input-card" aria-label="Playlist URL input">
+        <label for="playlist-url" class="input-label">YouTube Playlist URL</label>
+
+        <div class="input-row">
+          <input
+            type="url"
+            id="playlist-url"
+            class="url-input"
+            placeholder="https://www.youtube.com/playlist?list=PLxxxx…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="calculate-btn" class="calc-btn" type="button">
+            <span class="btn-text">Calculate</span>
+            <span id="spinner" class="spinner" hidden aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <p
+          id="loading-text"
+          class="loading-text"
+          role="status"
+          aria-live="polite"
+          hidden
+        >
+          Fetching playlist information…
+        </p>
+
+        <!-- Error -->
+        <p
+          id="error-message"
+          class="error-msg"
+          role="alert"
+          aria-live="assertive"
+          hidden
+        ></p>
+      </section>
+
+      <!-- RECENT SEARCHES -->
+      <section id="recent-section" class="card recent-card" hidden aria-label="Recent searches">
+        <h2 class="card-heading">Recent Searches</h2>
+        <div id="recent-list" class="recent-list"></div>
+      </section>
+
+      <!-- RESULTS SECTION -->
+      <section id="results-section" class="results" hidden aria-label="Playlist statistics">
+
+        <!-- Row 1: Count + Total -->
+        <div class="results-grid top-grid">
+          <div class="card stat-card accent">
+            <div class="stat-label">Total Videos</div>
+            <div id="res-count" class="stat-value big">—</div>
+          </div>
+          <div class="card stat-card highlight">
+            <div class="stat-label">Total Duration</div>
+            <div id="res-total" class="stat-value big">—</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="card progress-card">
+          <div class="stat-label">Playlist scale (relative to 200 hours)</div>
+          <div class="progress-track" role="progressbar" aria-label="Playlist length visualization">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Playback Speeds -->
+        <div class="card speed-card">
+          <h2 class="card-heading">Playback Speed Estimates</h2>
+          <table class="speed-table" aria-label="Duration at different playback speeds">
+            <thead class="sr-only">
+              <tr>
+                <th>Speed</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody id="speed-table-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Statistics -->
+        <div class="card stats-card">
+          <h2 class="card-heading">Statistics</h2>
+          <dl class="stats-dl">
+            <div class="stat-row">
+              <dt>Average video length</dt>
+              <dd id="res-average">—</dd>
+            </div>
+            <div class="stat-row">
+              <dt>Longest video</dt>
+              <dd id="res-longest">—</dd>
+            </div>
+            <div class="stat-row">
+              <dt>Shortest video</dt>
+              <dd id="res-shortest">—</dd>
+            </div>
+            <div class="stat-row">
+              <dt>At 1 hour/day</dt>
+              <dd id="res-days">—</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Actions -->
+        <div class="action-row">
+          <button id="copy-btn" class="action-btn" type="button">
+            📋 Copy Results
+          </button>
+          <button id="share-btn" class="action-btn" type="button">
+            🔗 Share URL
+          </button>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- ░░ FOOTER ░░ -->
+    <footer class="site-footer">
+      <p>
+        <a
+          href="https://developers.google.com/youtube/v3"
+          target="_blank"
+          rel="noopener noreferrer"
+        >made with ❤️</a>. Public playlists only :P
+      </p>
+    </footer>
+
+    <!-- Scripts (config must load first) -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -41,6 +41,19 @@ https://playlist-length-calc-tan.vercel.app
 
 <img width="2848" height="1549" alt="Screenshot 2026-06-07 213250" src="https://github.com/user-attachments/assets/6a593cb5-908d-4fb4-8353-1090af032f2b" />
 
+## Setup
+
+This project requires a YouTube Data API v3 key.
+
+1. Create a YouTube Data API v3 key in Google Cloud.
+2. Open `config.js`.
+3. Replace:
+
+```js
+const API_KEY = "YOUR_YOUTUBE_API_KEY_HERE";
+```
+
+with your own API key.
 
 ## Running Locally
 

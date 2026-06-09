@@ -4,7 +4,7 @@ A simple web application that calculates the total duration of any public YouTub
 
 ## Live Demo
 
-https://playlist-length-calc-tan.vercel.app
+[https://playlist-length-calc-tan.vercel.app](https://playlist-length-calci.vercel.app/)
 
 ## Features
 
